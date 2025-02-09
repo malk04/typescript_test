@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "es5",                         // Целевая версия JavaScript
+    "lib": ["dom", "esnext"],                // Библиотеки для компиляции
+    "esModuleInterop": true,                 // Включает поддержку импорта из CommonJS
+    "strict": true,                          // Включает строгую типизацию
+    "skipLibCheck": true,                    // Пропускает проверку типов в библиотеках
+    "module": "commonjs",                    // Тип модуля
+    "moduleResolution": "node",              // Разрешение модулей как в Node.js
+    "allowJs": true,                         // Разрешает использование JavaScript файлов
+    "jsx": "react-jsx"                       // Использование JSX для React
+  },
+  "include": [
+    "src/**/*"                               // Включает все файлы в папке src
+  ]
+}
