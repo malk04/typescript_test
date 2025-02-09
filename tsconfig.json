@@ -4,7 +4,7 @@
     "lib": ["dom", "esnext"],                // Библиотеки для компиляции
     "esModuleInterop": true,                 // Включает поддержку импорта из CommonJS
     "strict": true,                          // Включает строгую типизацию
-    "skipLibCheck": true,                    // Пропускает проверку типов в библиотеках
+    "skipLibCheck": false,                    // Пропускает проверку типов в библиотеках
     "module": "commonjs",                    // Тип модуля
     "moduleResolution": "node",              // Разрешение модулей как в Node.js
     "allowJs": true,                         // Разрешает использование JavaScript файлов
