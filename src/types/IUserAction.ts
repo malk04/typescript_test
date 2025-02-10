@@ -1,3 +1,4 @@
+// Интерфейс действия пользователя
 export interface IUserAction {
     username: string;
     action: string;

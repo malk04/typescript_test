@@ -1,45 +1,60 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import FilterInput from "./components/FilterInput";
 import UserActionTable from "./components/UserActionTable";
-import {useAppDispatch} from "./hooks/redux";
-import {UserActionSlice} from "./store/reducers/UserActionSlice";
-import {IUserAction} from "./types/IUserAction";
+import { IUserAction } from "./types/IUserAction";
+import { filterActions, loadActions } from "./store/action-creators/userActionActions";
+import { useAppDispatch } from "./hooks/useAppDispatch";
+import userActionsData from "./data/db.json";
+import { Button, ButtonGroup, NumericInput } from "@blueprintjs/core";
+
+const ITEMS_PER_PAGE = 50; // Количество элементов на страницу
 
 const App: React.FC = () => {
-    const { loadActions, filterActions } = UserActionSlice.actions;
     const dispatch = useAppDispatch();
+    const [page, setPage] = useState(1); // Текущая страница
+    const totalPages = Math.ceil(userActionsData.length / ITEMS_PER_PAGE); // Общее количество страниц
 
-  useEffect(() => {
-    // Имитируем загрузку данных
-    const actions: IUserAction[] = [
-      {
-        username: "user-001",
-        action: "logged_in",
-        action_created_at: "2022-05-08T07:01:09.171245Z",
-      },
-      {
-        username: "user-002",
-        action: "button_sign_in_tapped",
-        action_created_at: "2022-05-08T07:02:09.171245Z",
-      },
-      {
-        username: "user-003",
-        action: "button_log_out_tapped",
-        action_created_at: "2022-05-08T07:03:09.171245Z",
-      },
-      // Дополни еще действиями
-    ];
-      dispatch(loadActions(actions));
-      dispatch(filterActions(""));
-  }, [dispatch, loadActions, filterActions]);
+    useEffect(() => {
+        // Загружаем только текущую страницу данных
+        const startIndex = (page - 1) * ITEMS_PER_PAGE;
+        const endIndex = startIndex + ITEMS_PER_PAGE;
+        const actions: IUserAction[] = userActionsData.slice(startIndex, endIndex);
 
-  return (
-      <div style={{ padding: "20px" }}>
-        <h1>User Actions</h1>
-        <FilterInput />
-        <UserActionTable />
-      </div>
-  );
+        dispatch(loadActions(actions));
+        dispatch(filterActions(""));
+    }, [dispatch, page]);
+
+    return (
+        <div style={{ padding: "20px", width: "100%" }}>
+            <h1>User Actions</h1>
+            <FilterInput />
+            <UserActionTable />
+
+            {/* Пагинация */}
+            <div style={{ marginTop: "20px", display: "flex", alignItems: "center", gap: "10px" }}>
+                <ButtonGroup>
+                    <Button
+                        icon="arrow-left"
+                        disabled={page === 1}
+                        onClick={() => setPage(page - 1)}
+                    />
+                    <NumericInput
+                        min={1}
+                        max={totalPages}
+                        value={page}
+                        onValueChange={(value) => setPage(Math.max(1, Math.min(value, totalPages)))}
+                        style={{ width: "50px" }}
+                    />
+                    <Button
+                        icon="arrow-right"
+                        disabled={page === totalPages}
+                        onClick={() => setPage(page + 1)}
+                    />
+                </ButtonGroup>
+                <span>из {totalPages} страниц</span>
+            </div>
+        </div>
+    );
 };
 
 export default App;

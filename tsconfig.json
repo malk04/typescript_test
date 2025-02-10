@@ -8,7 +8,8 @@
     "module": "commonjs",                    // Тип модуля
     "moduleResolution": "node",              // Разрешение модулей как в Node.js
     "allowJs": true,                         // Разрешает использование JavaScript файлов
-    "jsx": "react-jsx"                       // Использование JSX для React
+    "jsx": "react-jsx",                      // Использование JSX для React
+    "resolveJsonModule": true                // Использование JSON
   },
   "include": [
     "src/**/*"                               // Включает все файлы в папке src

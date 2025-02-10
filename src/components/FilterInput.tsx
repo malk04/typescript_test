@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { InputGroup, Button } from "@blueprintjs/core";
-import {useAppDispatch} from "../hooks/redux";
-import {UserActionSlice} from "../store/reducers/UserActionSlice";
+import { InputGroup } from "@blueprintjs/core";
+import {useAppDispatch} from "../hooks/useAppDispatch";
+import {filterActions} from "../store/action-creators/userActionActions";
 
+// Компонент поисковой строки
 const FilterInput: React.FC = () => {
     const [query, setQuery] = useState("");
-    const { filterActions } = UserActionSlice.actions;
     const dispatch = useAppDispatch();
 
     const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
