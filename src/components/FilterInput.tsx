@@ -16,7 +16,7 @@ const FilterInput: React.FC = () => {
     return (
         <div style={{ marginBottom: "20px" }}>
             <InputGroup
-                placeholder="Filter actions..."
+                placeholder="Поиск действий пользователей..."
                 value={query}
                 onChange={handleFilterChange}
             />

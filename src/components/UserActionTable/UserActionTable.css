@@ -1,0 +1,6 @@
+.table-container {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    width: 480px;
+}

@@ -3,7 +3,8 @@ import { IUserAction } from "../../types/IUserAction";
 // Перечисление типов экшенов
 export enum UserActionEnum {
     LOAD_ACTIONS = "LOAD_ACTIONS",
-    FILTER_ACTIONS = "FILTER_ACTIONS"
+    FILTER_ACTIONS = "FILTER_ACTIONS",
+    SORT_ACTIONS = "SORT_ACTIONS",
 }
 
 // Интерфейс состояния
@@ -18,11 +19,20 @@ interface LoadActionsAction {
     payload: IUserAction[];
 }
 
-// Интерфейс экшена фильтрации
+// Интерфейс экшена установки фильтрации
 interface FilterActionsAction {
     type: UserActionEnum.FILTER_ACTIONS;
     payload: string;
 }
 
+// Интерфейс экшена сортировки
+interface SortActions {
+    type: UserActionEnum.SORT_ACTIONS;
+    payload: {
+        column: keyof IUserAction;
+        direction: "asc" | "desc";
+    };
+}
+
 // Объединенный тип для всех экшенов
-export type UserActionsAllTypes = LoadActionsAction | FilterActionsAction;
+export type UserActionsAllTypes = LoadActionsAction | FilterActionsAction | SortActions;
