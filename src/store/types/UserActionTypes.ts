@@ -4,13 +4,14 @@ import { IUserAction } from "../../types/IUserAction";
 export enum UserActionEnum {
     LOAD_ACTIONS = "LOAD_ACTIONS",
     FILTER_ACTIONS = "FILTER_ACTIONS",
-    SORT_ACTIONS = "SORT_ACTIONS",
+    PAGE_ACTIONS = "PAGE_ACTIONS",
 }
 
 // Интерфейс состояния
 export interface UserActionState {
     userActions: IUserAction[];
     filteredUserActions: IUserAction[];
+    onePageActions: IUserAction[];
 }
 
 // Интерфейс экшена загрузки
@@ -25,14 +26,11 @@ interface FilterActionsAction {
     payload: string;
 }
 
-// Интерфейс экшена сортировки
-interface SortActions {
-    type: UserActionEnum.SORT_ACTIONS;
-    payload: {
-        column: keyof IUserAction;
-        direction: "asc" | "desc";
-    };
+// Интерфейс экшена загрузки страницы таблицы
+interface PageTableAction {
+    type: UserActionEnum.PAGE_ACTIONS;
+    payload: number;
 }
 
 // Объединенный тип для всех экшенов
-export type UserActionsAllTypes = LoadActionsAction | FilterActionsAction | SortActions;
+export type UserActionsAllTypes = LoadActionsAction | FilterActionsAction | PageTableAction;

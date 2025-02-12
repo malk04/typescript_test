@@ -13,8 +13,8 @@ export const filterActions = (filter: string): UserActionsAllTypes => ({
     payload: filter,
 });
 
-// Экшен для сортировки
-export const sortActions = (column: string, direction: 'asc' | 'desc') => ({
-    type: UserActionEnum.SORT_ACTIONS,
-    payload: { column, direction }
+// Экшен для листания страниц
+export const pageActions = (page: number): UserActionsAllTypes => ({
+    type: UserActionEnum.PAGE_ACTIONS,
+    payload: page,
 });

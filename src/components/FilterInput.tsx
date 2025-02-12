@@ -1,24 +1,30 @@
-import React, { useState } from "react";
-import { InputGroup } from "@blueprintjs/core";
-import {useAppDispatch} from "../hooks/useAppDispatch";
-import {filterActions} from "../store/action-creators/userActionActions";
+import React from "react";
+import {Icon, InputGroup} from "@blueprintjs/core";
+import { useAppDispatch } from "../hooks/useAppDispatch";
+import { filterActions } from "../store/action-creators/userActionActions";
 
 // Компонент поисковой строки
-const FilterInput: React.FC = () => {
-    const [query, setQuery] = useState("");
+interface FilterInputProps {
+    filterQuery: string;
+    setFilterQuery: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const FilterInput: React.FC<FilterInputProps> = ({ filterQuery, setFilterQuery }) => {
     const dispatch = useAppDispatch();
 
     const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setQuery(event.target.value);
-        dispatch(filterActions(event.target.value));
+        const value = event.target.value;
+        setFilterQuery(value);
+        dispatch(filterActions(value));
     };
 
     return (
         <div style={{ marginBottom: "20px" }}>
             <InputGroup
                 placeholder="Поиск действий пользователей..."
-                value={query}
+                value={filterQuery}
                 onChange={handleFilterChange}
+                leftIcon={<Icon icon="search" />}
             />
         </div>
     );

@@ -4,7 +4,10 @@ import {UserActionEnum, UserActionsAllTypes, UserActionState} from "../types/Use
 const initialState: UserActionState = {
     userActions: [],
     filteredUserActions: [],
+    onePageActions: [],
 };
+
+const ITEMS_PER_PAGE = 20; // Количество элементов на страницу
 
 // Редьюсер для работы с действиями пользователей
 export function userActionReducer(state = initialState, action: UserActionsAllTypes): UserActionState {
@@ -21,24 +24,12 @@ export function userActionReducer(state = initialState, action: UserActionsAllTy
                     ? state.userActions.filter(userAction => userAction.action.includes(action.payload))
                     : state.userActions,
             };
-        case UserActionEnum.SORT_ACTIONS:
-            console.log('Sort actions:', action.payload);  // Логируем экшен для проверки
+        case UserActionEnum.PAGE_ACTIONS:
+            const startIndex = (action.payload - 1) * ITEMS_PER_PAGE;
+            const endIndex = startIndex + ITEMS_PER_PAGE;
             return {
                 ...state,
-                filteredUserActions: [...state.filteredUserActions].sort((a, b) => {
-                    const { column, direction } = action.payload;
-                    let valA = a[column];
-                    let valB = b[column];
-
-                    // Обрабатываем сортировку
-                    if (typeof valA === "string" && typeof valB === "string") {
-                        return direction === 'asc' ? valA.localeCompare(valB) : valB.localeCompare(valA);
-                    }
-                    if (typeof valA === "number" && typeof valB === "number") {
-                        return direction === 'asc' ? valA - valB : valB - valA;
-                    }
-                    return 0;
-                }),
+                onePageActions: state.filteredUserActions.slice(startIndex, endIndex),
             };
         default:
             return state;
