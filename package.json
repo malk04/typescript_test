@@ -1,12 +1,14 @@
 {
   "name": "typescript_test",
   "version": "0.1.0",
+  "homepage": "https://malk04.github.io/typescript_test",
   "private": true,
   "dependencies": {
     "@blueprintjs/core": "^5.16.4",
     "@blueprintjs/datetime2": "^2.3.21",
     "@blueprintjs/table": "^5.3.3",
     "cra-template-typescript": "1.2.0",
+    "gh-pages": "^6.3.0",
     "moment": "^2.30.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -19,7 +21,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "tsc": "tsc --noEmit"
+    "tsc": "tsc --noEmit",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
